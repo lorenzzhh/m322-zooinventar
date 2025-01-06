@@ -1,13 +1,13 @@
 import React from "react";
 import {
+    IconButton,
+    Paper,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TableRow,
-    Paper,
-    IconButton,
     TableSortLabel,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -32,9 +32,11 @@ const AnimalTable: React.FC<Props> = ({
                                           sortColumn,
                                       }) => {
     return (
-        <TableContainer component={Paper} sx={{maxWidth: 800, margin: "auto"}}>
+        <TableContainer component={Paper} sx={{margin: "auto"}}>
             <Table aria-label="Animal Inventory">
-                <TableHead>
+                <TableHead sx={{
+                    backgroundColor: 'primary.main'
+                }}>
                     <TableRow>
                         <TableCell>
                             <TableSortLabel

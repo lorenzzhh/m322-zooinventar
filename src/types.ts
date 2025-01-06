@@ -14,5 +14,5 @@ export interface Animal {
     name: string;
     species: Species;
     price: number;
-    birthday: Date;
+    birthday: Date | undefined;
 }

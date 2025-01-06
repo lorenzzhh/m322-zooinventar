@@ -1,11 +1,12 @@
 import AnimalTable from "./AnimalTable.tsx";
 import {useState} from "react";
 import {Animal, Species} from "./types.ts";
-import {createTheme, Dialog, IconButton, ThemeProvider} from "@mui/material";
+import {Box, Container, createTheme, Dialog, IconButton, ThemeProvider} from "@mui/material";
 import Form from "./Form.tsx";
 import Header from "./Header.tsx";
 import {lime, purple} from "@mui/material/colors";
 import {Add} from "@mui/icons-material";
+import './App.css'
 
 
 const animalsData: Array<Animal> = [
@@ -62,23 +63,39 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Header/>
-            <AnimalTable
-                animals={animals}
-                onDelete={handleDelete}
-                onEdit={handleEdit}
-                onSort={handleSort}
-                sortOrder={sortOrder}
-                sortColumn={sortColumn}
-            />
+            <Container  sx={{
 
-            <IconButton
-                sx={{
-                    backgroundColor: "primary.main"
-                }}
-                onClick={() => setShowForm(true)}
-                aria-label="add-animal">
-                <Add/>
-            </IconButton>
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                width: '80%',
+                margin: '0 auto',
+                marginTop: '1rem'
+            }}>
+                <AnimalTable
+                    animals={animals}
+                    onDelete={handleDelete}
+                    onEdit={handleEdit}
+                    onSort={handleSort}
+                    sortOrder={sortOrder}
+                    sortColumn={sortColumn}
+                />
+                <Box sx={{
+                    marginTop : '10px',
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                }}>
+
+                    <IconButton
+                        sx={{
+                            backgroundColor: "primary.main"
+                        }}
+                        onClick={() => setShowForm(true)}
+                        aria-label="add-animal">
+                        <Add/>
+                    </IconButton>
+                </Box>
+            </Container>
 
             {
                 showForm && (

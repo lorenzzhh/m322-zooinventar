@@ -82,7 +82,7 @@ function App() {
 
             {
                 showForm && (
-                    <Dialog open={showForm}>
+                    <Dialog open={showForm} onClose={() => setShowForm(false)}>
                         <Form setShowForm={(x) => setShowForm(x)} addAnimal={(a) => addAnimal(a)}/>
                     </Dialog>
                 )

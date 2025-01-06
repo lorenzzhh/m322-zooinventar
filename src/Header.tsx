@@ -1,21 +1,53 @@
-import {AppBar, Toolbar, Typography} from '@mui/material';
+import {Box, Typography} from '@mui/material';
 
-function Header() {
+const Header = () => {
     return (
-        <AppBar
-            position="static"
-            sx={{background: 'primary', color: 'white'}}
+        <Box
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                padding: 2,
+                backgroundColor: 'primary.main',
+            }}
         >
-            <Toolbar>
+            {/* Großes "Z" */}
+            <Typography
+                variant="h2"
+                sx={{
+                    fontWeight: 'bold',
+                    fontSize: '3rem', // Größerer Font für "Z"
+                    lineHeight: 1,
+                }}
+            >
+                Z
+            </Typography>
+
+            {/* Zwei kleinere "o"s */}
+            <Box sx={{display: 'flex', gap: 0.5}}>
                 <Typography
                     variant="h5"
-                    sx={{flexGrow: 1, textAlign: 'center', fontWeight: 'bold'}}
+                    sx={{
+                        fontWeight: 'bold',
+                        fontSize: '1.5rem', // Kleinere Größe für "o"
+                        lineHeight: 1,
+                    }}
                 >
-                    ZOO
+                    o
                 </Typography>
-            </Toolbar>
-        </AppBar>
+                <Typography
+                    variant="h5"
+                    sx={{
+                        fontWeight: 'bold',
+                        fontSize: '1.5rem',
+                        lineHeight: 1,
+                    }}
+                >
+                    o
+                </Typography>
+            </Box>
+        </Box>
     );
-}
+};
 
 export default Header;

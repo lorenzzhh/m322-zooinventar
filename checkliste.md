@@ -7,7 +7,7 @@
 - [ ] c. Die Tabelle hat alle 4 Attribute.
 - [ ] d. Datum und Preis sind in der Tabelle und für die Schweiz sinnvoll formatiert.
 - [ ] e. Der "+"-Button ist floating entsprechend dem Wireframe.
-- [ ] f. Das Formular öffnet als Dialog/PopUp. Es ist schliessbar durch Click in den Background und Click auf einen "
+- [x] f. Das Formular öffnet als Dialog/PopUp. Es ist schliessbar durch Click in den Background und Click auf einen "
   Cancel"-Button.
 - [ ] g. Das Formular ist beim Öffnen immer leer und fehlerfrei.
 - [ ] h. Optionale Felder sind markiert, required Felder nicht (Designlab #2).

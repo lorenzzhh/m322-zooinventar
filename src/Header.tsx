@@ -1,51 +1,33 @@
-import {Box, Typography} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const Header = () => {
     return (
         <Box
             sx={{
                 display: 'flex',
+                justifyContent: 'flex-start',
                 alignItems: 'center',
-                gap: 1,
                 padding: 2,
-                backgroundColor: 'primary.main',
+                bgcolor: 'primary.main',
+                color: 'black',
+                position: 'relative',
+                height: '2.2rem'
             }}
+            marginBottom={10}
         >
-            {/* Großes "Z" */}
+            {/* Z protruding from the header */}
             <Typography
-                variant="h2"
+                variant="h1"
                 sx={{
-                    fontWeight: 'bold',
-                    fontSize: '3rem', // Größerer Font für "Z"
-                    lineHeight: 1,
+                    position: 'relative',
+                    top: 27, // Negative value to make it stick out
+                    marginRight: 1, // To add spacing between Z and 'oo'
                 }}
             >
                 Z
             </Typography>
 
-            {/* Zwei kleinere "o"s */}
-            <Box sx={{display: 'flex', gap: 0.5}}>
-                <Typography
-                    variant="h5"
-                    sx={{
-                        fontWeight: 'bold',
-                        fontSize: '1.5rem', // Kleinere Größe für "o"
-                        lineHeight: 1,
-                    }}
-                >
-                    o
-                </Typography>
-                <Typography
-                    variant="h5"
-                    sx={{
-                        fontWeight: 'bold',
-                        fontSize: '1.5rem',
-                        lineHeight: 1,
-                    }}
-                >
-                    o
-                </Typography>
-            </Box>
+            <Typography variant="h2">oo</Typography>
         </Box>
     );
 };

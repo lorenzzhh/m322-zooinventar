@@ -4,7 +4,6 @@ import {Animal, Species} from "./types.ts";
 import {Box, Container, createTheme, Dialog, IconButton, ThemeProvider} from "@mui/material";
 import Form from "./Form.tsx";
 import Header from "./Header.tsx";
-import {lime, purple} from "@mui/material/colors";
 import {Add} from "@mui/icons-material";
 import './App.css'
 import SuccessMessage from "./SuccessMessage.tsx";
@@ -18,16 +17,19 @@ const animalsData: Array<Animal> = [
 
 const theme = createTheme({
     palette: {
-        primary: lime,
-        secondary: purple,
-    },
+        primary: {
+            main: '#0052CC'
+        },
+        secondary: {
+            main: '#ff5e4e'
+        }
+    }
 });
 
 function App() {
 
     const [animals, setAnimals] = useState(animalsData);
     const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
-
 
 
     const handleDelete = (id: number) => {

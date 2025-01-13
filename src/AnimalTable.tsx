@@ -10,13 +10,14 @@ type Props = {
 
 const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
     const columns: GridColDef[] = [
-        {field: 'name', headerName: 'Name', width: 150},
-        {field: 'species', headerName: 'Tierart', width: 150},
-        {field: 'price', headerName: 'Preis', width: 150},
+        {field: 'name', headerName: 'Name', width: 160  },
+        {field: 'species', headerName: 'Tierart', width: 160},
+        {field: 'price',flex: 1, headerName: 'Preis', width: 160},
         {
             field: 'birthdate',
             headerName: 'Geburtsdatum',
-            width: 150,
+            width: 170,
+            flex:1,
             renderCell: (params) => {
                 return new Date(params.row.birthdate).toLocaleDateString('de-DE');
             },
@@ -25,6 +26,7 @@ const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
             field: 'actions',
             headerName: 'Aktionen',
             width: 150,
+            flex: 1,
             renderCell: (params) => (
                 <>
                     <button onClick={() => onEdit(params.row.id)}>Edit</button>
@@ -45,12 +47,12 @@ const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
     return (
         <DataGrid
             columns={columns}
+            pageSizeOptions={[5, 10, 25]}
             rows={rows}
             sx={{
                 maxHeight: '30rem',
                 minHeight: '30rem'
             }}
-            pageSizeOptions={[5, 10, 25]}
         />
     );
 };

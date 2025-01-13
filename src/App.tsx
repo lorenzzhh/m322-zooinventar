@@ -70,7 +70,7 @@ function App() {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                width: '80%',
+                width: '70%',
                 margin: '0 auto',
                 marginTop: '1rem'
             }}>

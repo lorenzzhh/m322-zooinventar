@@ -14,7 +14,7 @@ const Header = () => {
                     position: 'relative',
                     height: '2.2rem',
                 }}
-                marginBottom={10}
+                marginBottom={5}
             >
                 {/* Z protruding from the header */}
                 <Typography

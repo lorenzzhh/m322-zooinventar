@@ -1,6 +1,6 @@
 import React from "react";
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Animal } from "./types.ts";
+import {DataGrid, GridColDef} from '@mui/x-data-grid';
+import {Animal} from "./types.ts";
 
 type Props = {
     animals: Animal[];
@@ -8,16 +8,25 @@ type Props = {
     onEdit: (id: number) => void;
 };
 
-const AnimalTable: React.FC<Props> = ({ animals, onDelete, onEdit }) => {
+const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
     const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Name', width: 150 },
-        { field: 'species', headerName: 'Tierart', width: 150 },
-        { field: 'price', headerName: 'Preis', width: 150 },
-        { field: 'birthdate', headerName: 'Geburtsdatum', width: 150 },
+        {field: 'name', headerName: 'Name', width: 160  },
+        {field: 'species', headerName: 'Tierart', width: 160},
+        {field: 'price',flex: 1, headerName: 'Preis', width: 160},
+        {
+            field: 'birthdate',
+            headerName: 'Geburtsdatum',
+            width: 170,
+            flex:1,
+            renderCell: (params) => {
+                return new Date(params.row.birthdate).toLocaleDateString('de-DE');
+            },
+        },
         {
             field: 'actions',
             headerName: 'Aktionen',
             width: 150,
+            flex: 1,
             renderCell: (params) => (
                 <>
                     <button onClick={() => onEdit(params.row.id)}>Edit</button>
@@ -38,7 +47,12 @@ const AnimalTable: React.FC<Props> = ({ animals, onDelete, onEdit }) => {
     return (
         <DataGrid
             columns={columns}
+            pageSizeOptions={[5, 10, 25]}
             rows={rows}
+            sx={{
+                maxHeight: '30rem',
+                minHeight: '30rem'
+            }}
         />
     );
 };

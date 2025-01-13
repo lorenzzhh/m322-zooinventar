@@ -16,6 +16,7 @@ const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
         {
             field: 'birthdate',
             headerName: 'Geburtsdatum',
+            sortable: false,
             width: 170,
             flex:1,
             renderCell: (params) => {
@@ -26,6 +27,7 @@ const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
             field: 'actions',
             headerName: 'Aktionen',
             width: 150,
+            sortable: false,
             flex: 1,
             renderCell: (params) => (
                 <>
@@ -48,6 +50,11 @@ const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
         <DataGrid
             columns={columns}
             pageSizeOptions={[5, 10, 25]}
+            initialState={{
+                pagination:{
+                    paginationModel:{pageSize: 10}
+                }
+            }}
             rows={rows}
             sx={{
                 maxHeight: '30rem',

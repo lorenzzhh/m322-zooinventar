@@ -1,12 +1,5 @@
-import {
-    Autocomplete,
-    Button,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    TextField,
-} from "@mui/material";
-import {FormEvent,  useState} from "react";
+import {Autocomplete, Button, DialogActions, DialogContent, DialogTitle, TextField,} from "@mui/material";
+import {FormEvent, useState} from "react";
 import {Animal, Species} from "./types.ts";
 import ValidatedInput from "./ValidatedInput.tsx";
 import {v4 as uuidv4} from 'uuid';
@@ -16,7 +9,7 @@ interface FormProps {
     setShowForm: (x: boolean) => void;
     addAnimal: (x: Animal) => void;
     setShowSuccessMessage: () => void;
-    existingAnimal ?: Animal
+    existingAnimal?: Animal
 }
 
 function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: Readonly<FormProps>) {
@@ -33,10 +26,10 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
             birthday: existingAnimal ? existingAnimal.birthday : null,
         },
         errors: {
-            name: !existingAnimal,
-            species: !existingAnimal,
-            price: !existingAnimal,
-            birthday: !existingAnimal,
+            name: false,
+            species: false,
+            price: false,
+            birthday: false,
         },
     });
 
@@ -59,15 +52,7 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
 
     const addAnimalButtonHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const {animal, errors} = formState;
-        if (animal.price == null || animal.species == null || Object.values(errors).some((err) => err)) {
-            alert("Please fill out all fields correctly.");
-            return;
-        }
-
         addAnimal(animal);
-
         setShowSuccessMessage();
         setShowForm(false);
     };
@@ -149,9 +134,17 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                     <Button onClick={() => setShowForm(false)} color="secondary">
                         CANCEL
                     </Button>
-                    <Button
-                        disabled={isButtonDisabled}
-                        type="submit">ADD ANIMAL</Button>
+                    {existingAnimal ?
+                        <Button
+                            disabled={isButtonDisabled}
+                            type="submit">Change Animal
+                        </Button>
+                        :
+                        <Button
+                            disabled={isButtonDisabled}
+                            type="submit">ADD ANIMAL
+                        </Button>
+                    }
                 </DialogActions>
             </form>
         </>

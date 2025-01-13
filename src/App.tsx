@@ -63,14 +63,23 @@ function App() {
         setShowForm(true);
     };
 
-    const addAnimal = (animal: Animal) => {
-        if (!animal.id) {
-            animal.id = uuidv4();
+    const addAnimal = (newAnimal: Animal) => {
+        const animalIndex = animals.findIndex((animal) => animal.id === newAnimal.id);
+
+        if (animalIndex !== -1) {
+            setAnimals((prev) => {
+                const updatedAnimals = [...prev];
+                updatedAnimals[animalIndex] = newAnimal;
+                return updatedAnimals;
+            });
+        } else {
+            setAnimals((prev) => [...prev, newAnimal]);
         }
-        setAnimals((prev) => [...prev, animal]);
+
         setExistingAnimal(undefined);
         setShowSuccessMessage(true);
     };
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -114,11 +123,15 @@ function App() {
 
             {
                 showForm && (
-                    <Dialog open={showForm} onClose={() => setShowForm(false)}>
-                        <Form existingAnimal={existingAnimal}  setShowForm={(x) => setShowForm(x)}
-                              addAnimal={(a) => addAnimal(a)}
-                              setShowSuccessMessage={() => setShowSuccessMessage(true)}/>
+                    <Dialog open={showForm} onClose={() => { setShowForm(false); setExistingAnimal(undefined); }}>
+                        <Form
+                            existingAnimal={existingAnimal}
+                            setShowForm={(x) => { setShowForm(x); setExistingAnimal(undefined); }}
+                            addAnimal={(a) => addAnimal(a)}
+                            setShowSuccessMessage={() => setShowSuccessMessage(true)}
+                        />
                     </Dialog>
+
                 )
             }
 

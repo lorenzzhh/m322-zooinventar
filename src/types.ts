@@ -12,7 +12,7 @@ export enum Species {
 export interface Animal {
     id: number;
     name: string;
-    species: Species;
-    price: number;
+    species: Species | null;
+    price: number | null;
     birthday: Date | null;
 }

@@ -20,13 +20,13 @@ let id = 3;
 
 function Form({setShowForm, addAnimal, setShowSuccessMessage}: Readonly<FormProps>) {
     id++;
-    
+
     const [formState, setFormState] = useState({
         animal: {
             id: id,
             name: "",
-            species: Species.Mammal,
-            price: 0,
+            species: null,
+            price: null,
             birthday: null
         },
         errors: {
@@ -57,12 +57,14 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage}: Readonly<FormProp
         e.preventDefault();
 
         const {animal, errors} = formState;
-        if (Object.values(errors).some((err) => err)) {
+        if (animal.price !== null || animal.species !== null || Object.values(errors).some((err) => err)) {
             alert("Please fill out all fields correctly.");
             return;
         }
 
+
         addAnimal(animal);
+
         setShowSuccessMessage();
         setShowForm(false);
     };
@@ -134,7 +136,7 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage}: Readonly<FormProp
                     <Button onClick={() => setShowForm(false)} color="secondary">
                         CANCEL
                     </Button>
-                    <Button type="submit">ADD ANIMAL</Button>
+                    <Button disabled={Object.values(errors).some(value => value)} type="submit">ADD ANIMAL</Button>
                 </DialogActions>
             </form>
         </>

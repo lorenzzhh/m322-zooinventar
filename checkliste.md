@@ -12,7 +12,7 @@
 - [ ] g. Das Formular ist beim Öffnen immer leer und fehlerfrei.
 - [ ] h. Optionale Felder sind markiert, required Felder nicht (Designlab #2).
 - [x] i. Es wird ein one-column Layout verwendet (Designlab #7).
-- [ ] j. Labels sind in oder über dem Form-Element (Designlab #8, #10).
+- [x] j. Labels sind in oder über dem Form-Element (Designlab #8, #10).
 - [ ] k. Erlaube native Date-Picker auf Mobile (Designlab #13).
 - [ ] l. Das deutsche Datumsformat DD.MM.YYYY wird verwendet (leider). Das Datum kann gelöscht werden.
 - [x] m. Der "Send"-Button hat eine sinnvolle Beschreibung (Designlab #16, #17).
@@ -27,11 +27,11 @@
 
 ## 2. Accessibilityanforderungen
 
-- [ ] a. Die Wahl der Farbpalette hat einen genügend grossen Kontrast.
-- [ ] b. Header und Content ist getrennt (für einen Screenreader).
-- [ ] c. Klickbare Elemente sind für einen Screenreader erkennbar.
-- [ ] d. Die Tab-Reihenfolge ist sinnvoll.
-- [ ] e. Form-Submit ist auch möglich mit der Enter-Taste.
+- [x] a. Die Wahl der Farbpalette hat einen genügend grossen Kontrast.
+- [x] b. Header und Content ist getrennt (für einen Screenreader).
+- [x] c. Klickbare Elemente sind für einen Screenreader erkennbar.
+- [x] d. Die Tab-Reihenfolge ist sinnvoll.
+- [x] e. Form-Submit ist auch möglich mit der Enter-Taste.
 - [ ] f. Es ist für Screenreader ersichtlich, dass der "Send"-Button inaktiv ist.
 
 ## 3. Codeanforderungen
@@ -39,4 +39,4 @@
 - [ ] a. Es werden wiederverwendbare Komponenten verwendet (z.B. für die Checkbox).
 - [ ] b. Es werden kleine Komponenten verwendet (<100 Zeilen).
 - [ ] c. Code ist auto-formatiert und ohne eslint-Warnings.
-- [ ] d. Generell wird das sx-Prop anstelle von CSS verwendet.
+- [x] d. Generell wird das sx-Prop anstelle von CSS verwendet.

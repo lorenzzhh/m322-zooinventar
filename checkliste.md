@@ -2,7 +2,7 @@
 
 ## 1. Designanforderungen
 
-- [ ] a. Das "Zoo"-Logo entspricht dem Wireframe (CSS, kein Bild 😉).
+- [x] a. Das "Zoo"-Logo entspricht dem Wireframe (CSS, kein Bild 😉).
 - [x] b. Es wird eine eigene Farbpalette verwendet und die primary-Color wird auf Primärelemente angewendet.
 - [x] c. Die Tabelle hat alle 4 Attribute.
 - [ ] d. Datum und Preis sind in der Tabelle und für die Schweiz sinnvoll formatiert.
@@ -11,7 +11,7 @@
   Cancel"-Button.
 - [ ] g. Das Formular ist beim Öffnen immer leer und fehlerfrei.
 - [ ] h. Optionale Felder sind markiert, required Felder nicht (Designlab #2).
-- [ ] i. Es wird ein one-column Layout verwendet (Designlab #7).
+- [x] i. Es wird ein one-column Layout verwendet (Designlab #7).
 - [ ] j. Labels sind in oder über dem Form-Element (Designlab #8, #10).
 - [ ] k. Erlaube native Date-Picker auf Mobile (Designlab #13).
 - [ ] l. Das deutsche Datumsformat DD.MM.YYYY wird verwendet (leider). Das Datum kann gelöscht werden.

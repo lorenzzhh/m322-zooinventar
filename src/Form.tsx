@@ -1,4 +1,4 @@
-import {Autocomplete, DialogActions, DialogContent, DialogTitle, TextField,} from "@mui/material";
+import {Autocomplete, Container, DialogActions, DialogContent, DialogTitle, TextField,} from "@mui/material";
 import {FormEvent, useState} from "react";
 import {Animal, Species} from "./types.ts";
 import ValidatedInput from "./ValidatedInput.tsx";
@@ -9,7 +9,7 @@ interface FormProps {
     setShowForm: (x: boolean) => void;
     addAnimal: (x: Animal) => void;
     setShowSuccessMessage: () => void;
-    existingAnimal?: Animal
+    existingAnimal?: Animal;
 }
 
 function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: Readonly<FormProps>) {
@@ -65,7 +65,10 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
         animal.price === null;
 
     return (
-        <>
+        <Container sx={{
+            width: '500px',
+            maxWidth: '90%'
+        }}>
             <DialogTitle>Add an Animal</DialogTitle>
             <form onSubmit={addAnimalButtonHandler}>
                 <DialogContent>
@@ -137,7 +140,7 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                     />
                 </DialogActions>
             </form>
-        </>
+        </Container>
     );
 }
 

@@ -121,19 +121,21 @@ function App() {
                 }
             </Container>
 
-            {
-                showForm && (
-                    <Dialog open={showForm} onClose={() => { setShowForm(false); setExistingAnimal(undefined); }}>
-                        <Form
-                            existingAnimal={existingAnimal}
-                            setShowForm={(x) => { setShowForm(x); setExistingAnimal(undefined); }}
-                            addAnimal={(a) => addAnimal(a)}
-                            setShowSuccessMessage={() => setShowSuccessMessage(true)}
-                        />
-                    </Dialog>
+            <Dialog open={showForm} onClose={() => {
+                setShowForm(false);
+                setExistingAnimal(undefined);
+            }}>
+                <Form
+                    existingAnimal={existingAnimal}
+                    setShowForm={(x) => {
+                        setShowForm(x);
+                        setExistingAnimal(undefined);
+                    }}
+                    addAnimal={(a) => addAnimal(a)}
+                    setShowSuccessMessage={() => setShowSuccessMessage(true)}
+                />
+            </Dialog>
 
-                )
-            }
 
         </ThemeProvider>
 

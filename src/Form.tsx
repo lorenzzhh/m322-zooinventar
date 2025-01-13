@@ -101,7 +101,6 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
             return;
         }
 
-
         addAnimal(animal);
 
         setShowSuccessMessage();
@@ -110,12 +109,19 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
 
     const {animal, errors} = formState;
 
+    const isButtonDisabled =
+        Object.values(errors).some((value) => value) ||
+        animal.name === "" ||
+        animal.species === null ||
+        animal.price === null;
+
     return (
         <>
             <DialogTitle>Add an Animal</DialogTitle>
             <form onSubmit={addAnimalButtonHandler}>
                 <DialogContent>
                     <ValidatedInput
+                        isChecked={animal.name !== "" && !errors.name}
                         error={errors.name}
                         helperText={errors.name ? "Name must be at least 3 characters long" : " "}
                     >
@@ -131,6 +137,7 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                     </ValidatedInput>
 
                     <ValidatedInput
+                        isChecked={animal.species !== null && !errors.species}
                         error={errors.species}
                         helperText={errors.species ? "Please choose a Species" : " "}
                     >
@@ -145,6 +152,7 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                     </ValidatedInput>
 
                     <ValidatedInput
+                        isChecked={animal.price !== null && !errors.price}
                         error={errors.price}
                         helperText={errors.price ? "Price must be higher than 0" : " "}
                     >
@@ -159,12 +167,13 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                     </ValidatedInput>
 
                     <ValidatedInput
+                        isChecked={animal.birthday !== null && !errors.birthday}
                         error={errors.birthday}
                         helperText={errors.birthday ? "Invalid birthday" : " "}
                     >
                         <TextField
                             fullWidth
-                            label="Birthday"
+                            label="Birthday (optional)"
                             type="date"
                             value={animal.birthday}
                             onChange={(e) => handleChange("birthday", e.target.value)}
@@ -175,7 +184,9 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                     <Button onClick={() => setShowForm(false)} color="secondary">
                         CANCEL
                     </Button>
-                    <Button disabled={Object.values(errors).some(value => value)} type="submit">ADD ANIMAL</Button>
+                    <Button
+                        disabled={isButtonDisabled}
+                        type="submit">ADD ANIMAL</Button>
                 </DialogActions>
             </form>
         </>

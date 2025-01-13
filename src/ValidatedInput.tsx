@@ -6,9 +6,10 @@ type ValidatedInputProps = {
     error?: boolean;
     helperText: string;
     children: ReactNode;
+    isChecked: boolean
 }
 
-const ValidatedInput = ({error, helperText, children}: ValidatedInputProps) => {
+const ValidatedInput = ({error, helperText, children, isChecked}: ValidatedInputProps) => {
     return (
         <FormControl
             fullWidth
@@ -22,7 +23,7 @@ const ValidatedInput = ({error, helperText, children}: ValidatedInputProps) => {
             }}
         >
             {children}
-            <CheckBoxValid isChecked={!error}/>
+            <CheckBoxValid isChecked={isChecked}/>
             <FormHelperText sx={{position: 'absolute', bottom: '-0.7rem'}}>
                 {helperText}
             </FormHelperText>

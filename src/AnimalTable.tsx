@@ -1,6 +1,6 @@
 import React from "react";
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Animal } from "./types.ts";
+import {DataGrid, GridColDef} from '@mui/x-data-grid';
+import {Animal} from "./types.ts";
 
 type Props = {
     animals: Animal[];
@@ -8,12 +8,19 @@ type Props = {
     onEdit: (id: number) => void;
 };
 
-const AnimalTable: React.FC<Props> = ({ animals, onDelete, onEdit }) => {
+const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
     const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Name', width: 150 },
-        { field: 'species', headerName: 'Tierart', width: 150 },
-        { field: 'price', headerName: 'Preis', width: 150 },
-        { field: 'birthdate', headerName: 'Geburtsdatum', width: 150 },
+        {field: 'name', headerName: 'Name', width: 150},
+        {field: 'species', headerName: 'Tierart', width: 150},
+        {field: 'price', headerName: 'Preis', width: 150},
+        {
+            field: 'birthdate',
+            headerName: 'Geburtsdatum',
+            width: 150,
+            renderCell: (params) => {
+                return new Date(params.row.birthdate).toLocaleDateString('de-DE');
+            },
+        },
         {
             field: 'actions',
             headerName: 'Aktionen',
@@ -39,6 +46,11 @@ const AnimalTable: React.FC<Props> = ({ animals, onDelete, onEdit }) => {
         <DataGrid
             columns={columns}
             rows={rows}
+            sx={{
+                maxHeight: '30rem',
+                minHeight: '30rem'
+            }}
+            pageSizeOptions={[5, 10, 25]}
         />
     );
 };

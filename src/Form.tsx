@@ -4,11 +4,12 @@ import React, {FormEvent, useState} from "react";
 import ValidatedInput from "./ValidatedInput.tsx";
 
 interface FormProps {
-    setShowForm: (x: boolean) => void;
-    addAnimal: (x: Animal) => void;
+    setShowForm: (x: boolean) => void,
+    addAnimal: (x: Animal) => void,
+    setShowSuccessMessage: () => void;
 }
 
-function Form({setShowForm, addAnimal}: Readonly<FormProps>) {
+function Form({setShowForm, addAnimal, setShowSuccessMessage}: Readonly<FormProps>) {
 
     const [animal, setAnimal] = useState<Animal>({
         id: 1,
@@ -20,6 +21,8 @@ function Form({setShowForm, addAnimal}: Readonly<FormProps>) {
 
     const addAnimalButtonHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        setShowSuccessMessage()
 
         if (animal) {
             addAnimal(animal);

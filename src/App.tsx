@@ -7,6 +7,7 @@ import Header from "./Header.tsx";
 import {lime, purple} from "@mui/material/colors";
 import {Add} from "@mui/icons-material";
 import './App.css'
+import SuccessMessage from "./SuccessMessage.tsx";
 
 
 const animalsData: Array<Animal> = [
@@ -27,6 +28,8 @@ function App() {
     const [animals, setAnimals] = useState(animalsData);
     const [sortColumn, setSortColumn] = useState<keyof typeof animals[0]>("name");
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
+    const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
 
     const handleSort = (column: keyof typeof animals[0]) => {
         const isAsc = sortColumn === column && sortOrder === "asc";
@@ -63,7 +66,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Header/>
-            <Container  sx={{
+            <Container sx={{
 
                 display: 'flex',
                 justifyContent: 'center',
@@ -81,7 +84,7 @@ function App() {
                     sortColumn={sortColumn}
                 />
                 <Box sx={{
-                    marginTop : '10px',
+                    marginTop: '10px',
                     display: 'flex',
                     justifyContent: 'flex-end',
                 }}>
@@ -95,15 +98,23 @@ function App() {
                         <Add/>
                     </IconButton>
                 </Box>
+
+                {
+                    showSuccessMessage && (
+                        <SuccessMessage/>
+                    )
+                }
             </Container>
 
             {
                 showForm && (
                     <Dialog open={showForm} onClose={() => setShowForm(false)}>
-                        <Form setShowForm={(x) => setShowForm(x)} addAnimal={(a) => addAnimal(a)}/>
+                        <Form setShowForm={(x) => setShowForm(x)} addAnimal={(a) => addAnimal(a)}
+                              setShowSuccessMessage={() => setShowSuccessMessage(true)}/>
                     </Dialog>
                 )
             }
+
         </ThemeProvider>
 
     );

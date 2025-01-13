@@ -57,7 +57,7 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage}: Readonly<FormProp
         e.preventDefault();
 
         const {animal, errors} = formState;
-        if (animal.price !== null || animal.species !== null || Object.values(errors).some((err) => err)) {
+        if (animal.price == null || animal.species == null || Object.values(errors).some((err) => err)) {
             alert("Please fill out all fields correctly.");
             return;
         }

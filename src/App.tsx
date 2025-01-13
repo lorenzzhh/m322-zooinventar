@@ -26,28 +26,9 @@ const theme = createTheme({
 function App() {
 
     const [animals, setAnimals] = useState(animalsData);
-    const [sortColumn, setSortColumn] = useState<keyof typeof animals[0]>("name");
-    const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-
     const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
 
-    const handleSort = (column: keyof typeof animals[0]) => {
-        const isAsc = sortColumn === column && sortOrder === "asc";
-        setSortOrder(isAsc ? "desc" : "asc");
-        setSortColumn(column);
 
-        setAnimals((prev) =>
-            [...prev].sort((a, b) =>
-                isAsc
-                    ? a[column] > b[column]
-                        ? 1
-                        : -1
-                    : a[column] < b[column]
-                        ? 1
-                        : -1
-            )
-        );
-    };
 
     const handleDelete = (id: number) => {
         setAnimals((prev) => prev.filter((animal) => animal.id !== id));
@@ -67,7 +48,6 @@ function App() {
         <ThemeProvider theme={theme}>
             <Header/>
             <Container sx={{
-
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
@@ -79,9 +59,7 @@ function App() {
                     animals={animals}
                     onDelete={handleDelete}
                     onEdit={handleEdit}
-                    onSort={handleSort}
-                    sortOrder={sortOrder}
-                    sortColumn={sortColumn}
+
                 />
                 <Box sx={{
                     marginTop: '10px',

@@ -4,8 +4,8 @@ import {Animal} from "./types.ts";
 
 type Props = {
     animals: Animal[];
-    onDelete: (id: number) => void;
-    onEdit: (id: number) => void;
+    onDelete: (id: string) => void;
+    onEdit: (id: string) => void;
 };
 
 const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {

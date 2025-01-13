@@ -47,6 +47,8 @@ function App() {
 
     const [animals, setAnimals] = useState(animalsData);
     const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
+    const [showForm, setShowForm] = useState(false)
+    const [existingAnimal, setExistingAnimal] = useState<Animal>()
 
 
     const handleDelete = (id: number) => {
@@ -54,14 +56,22 @@ function App() {
     };
 
     const handleEdit = (id: number) => {
-        console.log(`Edit animal with id: ${id}`);
+        const animalToEdit = animals.find((animal) => animal.id === id);
+        if (animalToEdit) {
+            setExistingAnimal(animalToEdit);
+        }
+        setShowForm(true);
     };
 
-    const [showForm, setShowForm] = useState(false)
-
     const addAnimal = (animal: Animal) => {
-        setAnimals([...animals, animal]);
-    }
+        if (!animal.id) {
+            const newId = Math.max(...animals.map((a) => a.id)) + 1;
+            animal.id = newId;
+        }
+        setAnimals((prev) => [...prev, animal]);
+        setExistingAnimal(undefined);
+        setShowSuccessMessage(true);
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -83,7 +93,7 @@ function App() {
                 <Box sx={{
                     marginTop: '10px',
                     display: 'flex',
-                    justifyContent: 'flex-end',
+                    justifyContent: 'space-around',
                 }}>
 
                     <IconButton
@@ -106,7 +116,7 @@ function App() {
             {
                 showForm && (
                     <Dialog open={showForm} onClose={() => setShowForm(false)}>
-                        <Form setShowForm={(x) => setShowForm(x)} addAnimal={(a) => addAnimal(a)}
+                        <Form existingAnimal={existingAnimal} setShowForm={(x) => setShowForm(x)} addAnimal={(a) => addAnimal(a)}
                               setShowSuccessMessage={() => setShowSuccessMessage(true)}/>
                     </Dialog>
                 )

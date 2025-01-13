@@ -6,7 +6,7 @@ import {
     DialogTitle,
     TextField,
 } from "@mui/material";
-import {FormEvent, useState} from "react";
+import {FormEvent, useEffect, useState} from "react";
 import {Animal, Species} from "./types.ts";
 import ValidatedInput from "./ValidatedInput.tsx";
 
@@ -14,28 +14,67 @@ interface FormProps {
     setShowForm: (x: boolean) => void;
     addAnimal: (x: Animal) => void;
     setShowSuccessMessage: () => void;
+    existingAnimal ?: Animal
 }
 
 let id = 3;
 
-function Form({setShowForm, addAnimal, setShowSuccessMessage}: Readonly<FormProps>) {
+function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: Readonly<FormProps>) {
     id++;
 
-    const [formState, setFormState] = useState({
+    const [formState, setFormState] = useState<{
+        animal: Animal;
+        errors: { name: boolean; species: boolean; price: boolean; birthday: boolean };
+    }>({
         animal: {
-            id: id,
-            name: "",
-            species: null,
-            price: null,
-            birthday: null
+            id: existingAnimal ? existingAnimal.id : ++id, // Increment ID only if adding new animal
+            name: existingAnimal ? existingAnimal.name : "",
+            species: existingAnimal ? existingAnimal.species : null,
+            price: existingAnimal ? existingAnimal.price : null,
+            birthday: existingAnimal ? existingAnimal.birthday : null,
         },
         errors: {
-            name: false,
-            species: false,
-            price: false,
-            birthday: false,
+            name: !existingAnimal,
+            species: !existingAnimal,
+            price: !existingAnimal,
+            birthday: !existingAnimal,
         },
     });
+    useEffect(() => {
+        if (existingAnimal) {
+            setFormState({
+                animal: {
+                    id: existingAnimal.id,
+                    name: existingAnimal.name,
+                    species: existingAnimal.species,
+                    price: existingAnimal.price,
+                    birthday: existingAnimal.birthday
+                },
+                errors: {
+                    name: false,
+                    species: false,
+                    price: false,
+                    birthday: false,
+                },
+            });
+        } else {
+            setFormState({
+                animal: {
+                    id: id, // Use new id for new animal
+                    name: "",
+                    species: null,
+                    price: null,
+                    birthday: null,
+                },
+                errors: {
+                    name: false,
+                    species: false,
+                    price: false,
+                    birthday: false,
+                },
+            });
+        }
+    }, [existingAnimal]);
 
     const handleChange = (
         field: keyof Animal,

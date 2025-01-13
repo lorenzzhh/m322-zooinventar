@@ -1,91 +1,85 @@
-import {Autocomplete, Button, DialogActions, DialogContent, DialogTitle, TextField} from "@mui/material";
+import {
+    Autocomplete,
+    Button,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+} from "@mui/material";
+import {FormEvent, useState} from "react";
 import {Animal, Species} from "./types.ts";
-import React, {FormEvent, useState} from "react";
 import ValidatedInput from "./ValidatedInput.tsx";
 
 interface FormProps {
-    setShowForm: (x: boolean) => void,
-    addAnimal: (x: Animal) => void,
+    setShowForm: (x: boolean) => void;
+    addAnimal: (x: Animal) => void;
     setShowSuccessMessage: () => void;
 }
 
 function Form({setShowForm, addAnimal, setShowSuccessMessage}: Readonly<FormProps>) {
+    const [formState, setFormState] = useState({
+        animal: {
+            id: 1,
+            name: "",
+            species: Species.Mammal,
+            price: 0,
+            birthday: null
+        },
+        errors: {
+            name: false,
+            species: false,
+            price: false,
+            birthday: false,
+        },
+    });
 
-    const [animal, setAnimal] = useState<Animal>({
-        id: 1,
-        name: "",
-        species: Species.Mammal,
-        price: 0,
-        birthday: new Date()
-    })
+    const handleChange = (
+        field: keyof Animal,
+        value: string | number | Species | Date
+    ) => {
+        setFormState((prev) => {
+            const updatedAnimal = {...prev.animal, [field]: value};
+            const updatedErrors = {...prev.errors};
+
+            if (field === "name") updatedErrors.name = (value as string).trim().length < 3;
+            if (field === "species") updatedErrors.species = value === null;
+            if (field === "price") updatedErrors.price = (value as number) <= 0;
+
+            return {animal: updatedAnimal, errors: updatedErrors};
+        });
+    };
 
     const addAnimalButtonHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        setShowSuccessMessage()
-
-        if (animal) {
-            addAnimal(animal);
-            setShowForm(false);
-        } else {
-            alert('Please fill out all fields.');
+        const {animal, errors} = formState;
+        if (Object.values(errors).some((err) => err)) {
+            alert("Please fill out all fields correctly.");
+            return;
         }
+
+        addAnimal(animal);
+        setShowSuccessMessage();
+        setShowForm(false);
     };
 
-    const [errors, setErrors] = useState({name: false, species: false, price: false, birthday: false});
-
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const name = e.target.value;
-        setAnimal((prev) => ({...prev, name}));
-        setErrors((prev) => ({...prev, name: name.trim().length < 3}));
-        //validateForm();
-    };
-
-    const handleSpeciesChange = (_event: React.SyntheticEvent, value: string | null) => {
-        const speciesValue = value as Species | null;
-        if (speciesValue !== null) {
-            setAnimal((prev) => ({...prev, species: speciesValue}));
-        }
-        setErrors((prev) => ({...prev, species: speciesValue === null}));
-        // validateForm();
-    };
-
-
-    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const price = parseInt(e.target.value);
-        setAnimal((prev) => ({...prev, price}));
-        setErrors((prev) => ({...prev, price: price < 0}));
-        //validateForm();
-    };
-
-    const handleBirthdayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const birthday = new Date(e.target.value);
-        console.log(birthday)
-        setAnimal((prev) => ({...prev, birthday: birthday}));
-        setErrors((prev) => ({...prev, birthday: false}));
-        //validateForm();
-    };
-
-    // const validateForm = () => {
-    //     const isValid = animal.name.trim().length >= 3 && Object.values(AnimalType).includes(animal.type) && animal.price > 0;
-    //     setAddDisabled(!isValid);
-    // };
+    const {animal, errors} = formState;
 
     return (
         <>
             <DialogTitle>Add an Animal</DialogTitle>
             <form onSubmit={addAnimalButtonHandler}>
                 <DialogContent>
-
                     <ValidatedInput
                         error={errors.name}
-                        helperText={errors.name ? 'Name must be at least 3 characters long' : ' '}>
+                        helperText={errors.name ? "Name must be at least 3 characters long" : " "}
+                    >
                         <TextField
                             required
                             label="Name"
                             margin="normal"
                             value={animal.name}
-                            onChange={handleNameChange}
+                            onChange={(e) => handleChange("name", e.target.value)}
                             error={errors.name}
                             fullWidth
                         />
@@ -93,43 +87,44 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage}: Readonly<FormProp
 
                     <ValidatedInput
                         error={errors.species}
-                        helperText={errors.species ? 'Please choose a Species' : ' '}>
+                        helperText={errors.species ? "Please choose a Species" : " "}
+                    >
                         <Autocomplete
                             disablePortal
                             options={Object.values(Species)}
                             fullWidth
                             value={animal.species}
-                            onChange={handleSpeciesChange}
+                            onChange={(_, value) => handleChange("species", value || "")}
                             renderInput={(params) => <TextField {...params} label="Species" required/>}
                         />
                     </ValidatedInput>
 
-
                     <ValidatedInput
                         error={errors.price}
-                        helperText={errors.price ? 'Price must be higher than 0' : ' '}>
+                        helperText={errors.price ? "Price must be higher than 0" : " "}
+                    >
                         <TextField
                             required
                             fullWidth
                             label="Price"
                             type="number"
                             value={animal.price}
-                            onChange={handlePriceChange}
+                            onChange={(e) => handleChange("price", parseInt(e.target.value))}
                         />
                     </ValidatedInput>
 
                     <ValidatedInput
                         error={errors.birthday}
-                        helperText={errors.birthday ? 'Birthday error' : ' '}>
+                        helperText={errors.birthday ? "Invalid birthday" : " "}
+                    >
                         <TextField
                             fullWidth
                             label="Birthday"
                             type="date"
                             value={animal.birthday}
-                            onChange={handleBirthdayChange}
+                            onChange={(e) => handleChange("birthday", e.target.value)}
                         />
                     </ValidatedInput>
-
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setShowForm(false)} color="secondary">

@@ -32,7 +32,7 @@
 - [x] c. Klickbare Elemente sind für einen Screenreader erkennbar.
 - [x] d. Die Tab-Reihenfolge ist sinnvoll.
 - [x] e. Form-Submit ist auch möglich mit der Enter-Taste.
-- [ ] f. Es ist für Screenreader ersichtlich, dass der "Send"-Button inaktiv ist.
+- [x] f. Es ist für Screenreader ersichtlich, dass der "Send"-Button inaktiv ist.
 
 ## 3. Codeanforderungen
 

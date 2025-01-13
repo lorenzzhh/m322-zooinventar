@@ -1,9 +1,9 @@
-import {Autocomplete, Button, DialogActions, DialogContent, DialogTitle, TextField,} from "@mui/material";
+import {Autocomplete, DialogActions, DialogContent, DialogTitle, TextField,} from "@mui/material";
 import {FormEvent, useState} from "react";
 import {Animal, Species} from "./types.ts";
 import ValidatedInput from "./ValidatedInput.tsx";
 import {v4 as uuidv4} from 'uuid';
-
+import FormButtonStack from "./FormButtonStack.tsx";
 
 interface FormProps {
     setShowForm: (x: boolean) => void;
@@ -32,7 +32,6 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
             birthday: false,
         },
     });
-
 
     const handleChange = (
         field: keyof Animal,
@@ -131,20 +130,11 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                     </ValidatedInput>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setShowForm(false)} color="secondary">
-                        CANCEL
-                    </Button>
-                    {existingAnimal ?
-                        <Button
-                            disabled={isButtonDisabled}
-                            type="submit">Change Animal
-                        </Button>
-                        :
-                        <Button
-                            disabled={isButtonDisabled}
-                            type="submit">ADD ANIMAL
-                        </Button>
-                    }
+                    <FormButtonStack
+                        isButtonDisabled={isButtonDisabled}
+                        onCancel={() => setShowForm(false)}
+                        buttonText={existingAnimal ? "Change Animal" : "ADD ANIMAL"}
+                    />
                 </DialogActions>
             </form>
         </>

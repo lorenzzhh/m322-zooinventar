@@ -16,10 +16,14 @@ interface FormProps {
     setShowSuccessMessage: () => void;
 }
 
+let id = 3;
+
 function Form({setShowForm, addAnimal, setShowSuccessMessage}: Readonly<FormProps>) {
+    id++;
+    
     const [formState, setFormState] = useState({
         animal: {
-            id: 1,
+            id: id,
             name: "",
             species: Species.Mammal,
             price: 0,

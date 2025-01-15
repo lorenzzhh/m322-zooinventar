@@ -17,14 +17,7 @@ const animalsData: Array<Animal> = [
 ];
 
 const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#0052CC'
-        },
-        secondary: {
-            main: '#c62828'
-        }
-    }
+    palette: {primary: {main: "#0052CC"}, secondary: {main: "#c62828"}},
 });
 
 function App() {
@@ -66,39 +59,21 @@ function App() {
         <ThemeProvider theme={theme}>
             <Header/>
             <Container
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    flexDirection: 'column',
-                    width: '80%',
-                    margin: '0 auto',
-                    marginTop: '2rem',
-                    '@media (max-width: 480px)': {
-                        width: '95%',
-                    }
-                }}>
+                sx={{width: "80%", mt: 4, mx: "auto", "@media (max-width: 480px)": {width: "95%"}}}>
                 <AnimalTable
                     animals={animals}
                     onDelete={handleDelete}
-                    onEdit={handleEdit}/>
-                <Box sx={{
-                    marginTop: '10px',
-                    display: 'flex',
-                    justifyContent: 'flex-end'
-                }}>
+                    onEdit={handleEdit}
+                />
+                <Box sx={{mt: 2, textAlign: "right"}}>
                     <IconButton
-                        sx={{
-                            backgroundColor: "primary.main",
-                            color: 'white'
-                        }}
+                        sx={{bgcolor: "primary.main", color: "white"}}
                         onClick={() => setShowForm(true)}
                         aria-label="add-animal">
                         <Add/>
                     </IconButton>
                 </Box>
-                {showSuccessMessage && (
-                    <SuccessMessage/>
-                )}
+                {showSuccessMessage && <SuccessMessage/>}
             </Container>
             {showForm && (
                 <Dialog open={showForm} onClose={() => {

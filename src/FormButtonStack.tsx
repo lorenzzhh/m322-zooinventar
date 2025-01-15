@@ -9,10 +9,10 @@ type FormButtonStackProps = {
 const FormButtonStack = ({isButtonDisabled, onCancel, buttonText}: FormButtonStackProps) => {
     return (
         <DialogActions>
-            <Button onClick={onCancel} color="secondary">
+            <Button onClick={onCancel} color="secondary" >
                 CANCEL
             </Button>
-            <Button disabled={isButtonDisabled} type="submit">
+            <Button disabled={isButtonDisabled} type="submit" >
                 {buttonText}
             </Button>
         </DialogActions>

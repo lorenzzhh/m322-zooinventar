@@ -39,7 +39,7 @@ const theme = createTheme({
             main: '#0052CC'
         },
         secondary: {
-            main: '#ff5e4e'
+            main: '#c62828'
         }
     }
 });
@@ -84,14 +84,19 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Header/>
-            <Container sx={{
+            <Container
+                sx={{
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                width: '70%',
+                width: '80%',
                 margin: '0 auto',
-                marginTop: '1rem'
-            }}>
+                marginTop: '2rem',
+                '@media (max-width: 480px)': {
+                    width: '95%',
+                }
+                }}
+            >
                 <AnimalTable
                     animals={animals}
                     onDelete={handleDelete}
@@ -121,22 +126,17 @@ function App() {
                 }
             </Container>
 
-            <Dialog open={showForm} onClose={() => {
-                setShowForm(false);
-                setExistingAnimal(undefined);
-            }}>
-                <Form
-                    existingAnimal={existingAnimal}
-                    setShowForm={(x) => {
-                        setShowForm(x);
-                        setExistingAnimal(undefined);
-                    }}
-                    addAnimal={(a) => addAnimal(a)}
-                    setShowSuccessMessage={() => setShowSuccessMessage(true)}
-                />
-            </Dialog>
-
-
+            {
+                showForm && (
+                    <Dialog open={showForm} onClose={() => { setShowForm(false); setExistingAnimal(undefined); }}>
+                        <Form
+                            existingAnimal={existingAnimal}
+                            setShowForm={(x) => { setShowForm(x); setExistingAnimal(undefined); }}
+                            addAnimal={(a) => addAnimal(a)}
+                            setShowSuccessMessage={() => setShowSuccessMessage(true)}
+                        />
+                    </Dialog>
+                )}
         </ThemeProvider>
 
     );

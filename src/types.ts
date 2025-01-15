@@ -1,3 +1,5 @@
+import {Dayjs} from "dayjs";
+
 export enum Species {
     Mammal = "Mammal",
     Bird = "Bird",
@@ -14,5 +16,5 @@ export interface Animal {
     name: string;
     species: Species | null;
     price: number | null;
-    birthday: Date | null;
+    birthday: Dayjs | null;
 }

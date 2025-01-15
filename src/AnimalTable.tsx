@@ -1,6 +1,7 @@
 import React from "react";
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
 import {Animal} from "./types.ts";
+import {Button} from "@mui/material";
 
 type Props = {
     animals: Animal[];
@@ -10,29 +11,39 @@ type Props = {
 
 const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
     const columns: GridColDef[] = [
-        {field: 'name', headerName: 'Name', width: 160  },
-        {field: 'species', headerName: 'Tierart', width: 160},
-        {field: 'price',flex: 1, headerName: 'Preis', width: 160},
+        {field: 'name', flex: 1, headerName: 'Name', width: 160, minWidth: 100},
+        {field: 'species', headerName: 'Tierart', width: 160, flex: 1, minWidth: 100},
+        {
+            field: 'price', headerName: 'Preis', flex: 1, width: 160, minWidth: 100,
+            renderCell: params => "CHF " + params.row.price
+        },
         {
             field: 'birthdate',
             headerName: 'Geburtsdatum',
             sortable: false,
-            width: 170,
-            flex:1,
+            width: 180,
+            minWidth: 110,
+            flex: 1,
             renderCell: (params) => {
-                return new Date(params.row.birthdate).toLocaleDateString('de-DE');
+                return new Date(params.row.birthdate).toLocaleDateString('de-DE', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
             },
         },
         {
             field: 'actions',
             headerName: 'Aktionen',
-            width: 150,
+            width: 180,
+            minWidth: 100,
             sortable: false,
-            flex: 1,
             renderCell: (params) => (
                 <>
-                    <button onClick={() => onEdit(params.row.id)}>Edit</button>
-                    <button onClick={() => onDelete(params.row.id)}>Delete</button>
+                    <Button sx={{marginRight: 1}}  size={"small"} variant={"contained"}
+                            onClick={() => onEdit(params.row.id)}>Edit</Button>
+                    <Button size={"small"} variant={"contained"} color={"secondary"}
+                            onClick={() => onDelete(params.row.id)}>Delete</Button>
                 </>
             ),
         },
@@ -49,16 +60,16 @@ const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
     return (
         <DataGrid
             columns={columns}
-            pageSizeOptions={[5, 10, 25]}
+            pageSizeOptions={[5, 10, 25, {value: -1, label: 'All'}]}
             initialState={{
-                pagination:{
-                    paginationModel:{pageSize: 10}
+                pagination: {
+                    paginationModel: {pageSize: 10}
                 }
             }}
             rows={rows}
             sx={{
                 maxHeight: '30rem',
-                minHeight: '30rem'
+                minHeight: '30rem',
             }}
         />
     );

@@ -1,9 +1,19 @@
-import {Autocomplete, Container, DialogActions, DialogContent, DialogTitle, TextField,} from "@mui/material";
+import {
+    Autocomplete,
+    Container,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    InputAdornment,
+    TextField,
+} from "@mui/material";
 import {FormEvent, useState} from "react";
 import {Animal, Species} from "./types.ts";
 import ValidatedInput from "./ValidatedInput.tsx";
 import {v4 as uuidv4} from 'uuid';
 import FormButtonStack from "./FormButtonStack.tsx";
+import {DatePicker} from "@mui/x-date-pickers";
+import dayjs, {Dayjs} from 'dayjs';
 
 interface FormProps {
     setShowForm: (x: boolean) => void;
@@ -23,7 +33,7 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
             name: existingAnimal ? existingAnimal.name : "",
             species: existingAnimal ? existingAnimal.species : null,
             price: existingAnimal ? existingAnimal.price : null,
-            birthday: existingAnimal ? existingAnimal.birthday : null,
+            birthday: existingAnimal ? existingAnimal.birthday : dayjs(),
         },
         errors: {
             name: false,
@@ -35,7 +45,7 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
 
     const handleChange = (
         field: keyof Animal,
-        value: string | number | Species | Date
+        value: string | number | Species | Dayjs | null
     ) => {
         setFormState((prev) => {
             const updatedAnimal = {...prev.animal, [field]: value};
@@ -114,7 +124,10 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                             label="Price"
                             type="number"
                             value={animal.price}
-                            onChange={(e) => handleChange("price", parseInt(e.target.value))}
+                            onChange={(e) => handleChange("price", parseFloat(e.target.value))}
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start">CHF</InputAdornment>,
+                            }}
                         />
                     </ValidatedInput>
 
@@ -123,13 +136,13 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                         error={errors.birthday}
                         helperText={errors.birthday ? "Invalid birthday" : " "}
                     >
-                        <TextField
-                            fullWidth
+                        <DatePicker
                             label="Birthday (optional)"
-                            type="date"
                             value={animal.birthday}
-                            onChange={(e) => handleChange("birthday", e.target.value)}
+                            onChange={(newValue) => handleChange("birthday", newValue)}
                         />
+
+
                     </ValidatedInput>
                 </DialogContent>
                 <DialogActions>

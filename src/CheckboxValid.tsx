@@ -8,7 +8,7 @@ type CheckBoxValidProps = {
 
 const CheckBoxValid = ({isChecked}: CheckBoxValidProps) => {
     return (<>{
-            isChecked ? <CheckBoxIcon/> : <CheckBoxOutlineBlankIcon/>
+            isChecked ? <CheckBoxIcon sx={{marginLeft: '1rem'}} color={"success"}/> : <CheckBoxOutlineBlankIcon sx={{marginLeft: '1rem'}}/>
         }</>
     );
 };

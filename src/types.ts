@@ -10,7 +10,6 @@ export enum Species {
     Arachnid = "Arachnid",
 }
 
-
 export interface Animal {
     id: string;
     name: string;

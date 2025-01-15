@@ -10,7 +10,6 @@ import {v4 as uuidv4} from 'uuid';
 import SuccessMessage from "./SuccessMessage.tsx";
 import dayjs from "dayjs";
 
-
 const animalsData: Array<Animal> = [
     {id: uuidv4(), name: "Elephant", species: Species.Mammal, birthday: dayjs("2010-06-21"), price: 5000},
     {id: uuidv4(), name: "Crocodile", species: Species.Reptile, birthday: dayjs("2010-06-21"), price: 1200},
@@ -33,7 +32,6 @@ function App() {
     const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
     const [showForm, setShowForm] = useState(false)
     const [existingAnimal, setExistingAnimal] = useState<Animal>()
-
 
     const handleDelete = (uuid: string) => {
         setAnimals((prev) => prev.filter((animal) => animal.id !== uuid));
@@ -59,11 +57,10 @@ function App() {
         } else {
             setAnimals((prev) => [...prev, newAnimal]);
         }
-
         setExistingAnimal(undefined);
         setShowSuccessMessage(true);
+        setShowForm(false);
     };
-
 
     return (
         <ThemeProvider theme={theme}>
@@ -79,20 +76,16 @@ function App() {
                     '@media (max-width: 480px)': {
                         width: '95%',
                     }
-                }}
-            >
+                }}>
                 <AnimalTable
                     animals={animals}
                     onDelete={handleDelete}
-                    onEdit={handleEdit}
-
-                />
+                    onEdit={handleEdit}/>
                 <Box sx={{
                     marginTop: '10px',
                     display: 'flex',
-                    justifyContent: 'flex-end',
+                    justifyContent: 'flex-end'
                 }}>
-
                     <IconButton
                         sx={{
                             backgroundColor: "primary.main",
@@ -103,33 +96,25 @@ function App() {
                         <Add/>
                     </IconButton>
                 </Box>
-
-                {
-                    showSuccessMessage && (
-                        <SuccessMessage/>
-                    )
-                }
-            </Container>
-
-            {
-                showForm && (
-                    <Dialog open={showForm} onClose={() => {
-                        setShowForm(false);
-                        setExistingAnimal(undefined);
-                    }}>
-                        <Form
-                            existingAnimal={existingAnimal}
-                            setShowForm={(x) => {
-                                setShowForm(x);
-                                setExistingAnimal(undefined);
-                            }}
-                            addAnimal={(a) => addAnimal(a)}
-                            setShowSuccessMessage={() => setShowSuccessMessage(true)}
-                        />
-                    </Dialog>
+                {showSuccessMessage && (
+                    <SuccessMessage/>
                 )}
+            </Container>
+            {showForm && (
+                <Dialog open={showForm} onClose={() => {
+                    setShowForm(false);
+                    setExistingAnimal(undefined);
+                }}>
+                    <Form
+                        existingAnimal={existingAnimal}
+                        setShowForm={(x) => {
+                            setShowForm(x);
+                        }}
+                        addAnimal={(a) => addAnimal(a)}
+                    />
+                </Dialog>
+            )}
         </ThemeProvider>
-
     );
 }
 

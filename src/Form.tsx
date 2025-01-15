@@ -17,11 +17,10 @@ import dayjs, {Dayjs} from 'dayjs';
 interface FormProps {
     setShowForm: (x: boolean) => void;
     addAnimal: (x: Animal) => void;
-    setShowSuccessMessage: () => void;
     existingAnimal?: Animal;
 }
 
-function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: Readonly<FormProps>) {
+function Form({setShowForm, addAnimal, existingAnimal}: Readonly<FormProps>) {
 
     const [formState, setFormState] = useState<{
         animal: Animal;
@@ -62,8 +61,6 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
     const addAnimalButtonHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         addAnimal(animal);
-        setShowSuccessMessage();
-        setShowForm(false);
     };
 
     const {animal, errors} = formState;

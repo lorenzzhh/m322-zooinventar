@@ -16,7 +16,6 @@ const Header = () => {
                 }}
                 marginBottom={5}
             >
-                {/* Z protruding from the header */}
                 <Typography
                     variant="h1"
                     sx={{

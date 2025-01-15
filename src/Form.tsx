@@ -105,7 +105,7 @@ function Form({setShowForm, addAnimal, existingAnimal, setExistingAnimal}: Reado
                             sx={{marginBottom: '0.5rem'}}
                             fullWidth
                             value={animal.species}
-                            onChange={(_, value) => handleChange("species", value ?? "")}
+                            onChange={(_, value) => handleChange("species", value ?? null)}
                             renderInput={(params) => <TextField {...params} label="Species"/>}
                         />
                     </ValidatedInput>
@@ -119,6 +119,7 @@ function Form({setShowForm, addAnimal, existingAnimal, setExistingAnimal}: Reado
                             label="Price"
                             sx={{marginBottom: '0.5rem'}}
                             type="number"
+                            error={errors.price}
                             value={animal.price}
                             onChange={(e) => handleChange("price", parseFloat(e.target.value))}
                             slotProps={{
@@ -137,6 +138,7 @@ function Form({setShowForm, addAnimal, existingAnimal, setExistingAnimal}: Reado
                             fullWidth
                             sx={{marginBottom: '0.5rem'}}
                             label="Birthday (optional)"
+                            error={errors.birthday}
                             type="date"
                             value={animal.birthday !== null ? animal.birthday : dayjs()}
                             onChange={(e) => handleChange("birthday", e.target.value)}

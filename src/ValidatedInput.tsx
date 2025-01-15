@@ -24,9 +24,11 @@ const ValidatedInput = ({error, helperText, children, isChecked}: ValidatedInput
         >
             {children}
             <CheckBoxValid isChecked={isChecked}/>
-            <FormHelperText sx={{position: 'absolute', bottom: '-0.7rem'}}>
-                {helperText}
-            </FormHelperText>
+            {error &&
+                <FormHelperText sx={{position: 'absolute', bottom: '-0.7rem'}}>
+                    {helperText}
+                </FormHelperText>
+            }
         </FormControl>
     );
 };

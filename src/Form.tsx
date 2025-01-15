@@ -53,7 +53,6 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
             if (field === "name") updatedErrors.name = (value as string).trim().length < 3;
             if (field === "species") updatedErrors.species = value === null;
             if (field === "price") updatedErrors.price = (value as number) <= 0;
-
             if (field === "birthday") updatedErrors.birthday = dayjs(value).isAfter(dayjs()) || dayjs(value).isBefore(dayjs().subtract(150, "years"));
 
             return {animal: updatedAnimal, errors: updatedErrors};
@@ -86,10 +85,9 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                     <ValidatedInput
                         isChecked={animal.name !== "" && !errors.name}
                         error={errors.name}
-                        helperText={errors.name ? "Name must be at least 3 characters long" : " "}
+                        helperText={"Name must be at least 3 characters long"}
                     >
                         <TextField
-                            required
                             label="Name"
                             margin="normal"
                             value={animal.name}
@@ -98,11 +96,10 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                             fullWidth
                         />
                     </ValidatedInput>
-
                     <ValidatedInput
                         isChecked={animal.species !== null && !errors.species}
                         error={errors.species}
-                        helperText={errors.species ? "Please choose a Species" : " "}
+                        helperText={"Please choose a Species"}
                     >
                         <Autocomplete
                             disablePortal
@@ -110,32 +107,31 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                             fullWidth
                             value={animal.species}
                             onChange={(_, value) => handleChange("species", value ?? "")}
-                            renderInput={(params) => <TextField {...params} label="Species" required/>}
+                            renderInput={(params) => <TextField {...params} label="Species"/>}
                         />
                     </ValidatedInput>
-
                     <ValidatedInput
                         isChecked={animal.price !== null && !errors.price}
                         error={errors.price}
-                        helperText={errors.price ? "Price must be higher than 0" : " "}
+                        helperText={"Price must be higher than 0"}
                     >
                         <TextField
-                            required
                             fullWidth
                             label="Price"
                             type="number"
                             value={animal.price}
                             onChange={(e) => handleChange("price", parseFloat(e.target.value))}
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start">CHF</InputAdornment>,
+                            slotProps={{
+                                input: {
+                                    startAdornment: <InputAdornment position="start">CHF</InputAdornment>,
+                                },
                             }}
                         />
                     </ValidatedInput>
-
                     <ValidatedInput
                         isChecked={animal.birthday !== null && !errors.birthday}
                         error={errors.birthday}
-                        helperText={errors.birthday ? "Birthday can't be older than 150 years or be in the future." : " "}
+                        helperText={"Birthday can't be older than 150 years or be in the future"}
                     >
                         <TextField
                             fullWidth

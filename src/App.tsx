@@ -95,7 +95,8 @@ function App() {
 
                     <IconButton
                         sx={{
-                            backgroundColor: "primary.main"
+                            backgroundColor: "primary.main",
+                            color: 'white'
                         }}
                         onClick={() => setShowForm(true)}
                         aria-label="add-animal">

@@ -16,11 +16,12 @@ import dayjs, {Dayjs} from 'dayjs';
 
 interface FormProps {
     setShowForm: (x: boolean) => void;
-    addAnimal: (x: Animal) => void;
+    addAnimal: (a: Animal) => void;
     existingAnimal?: Animal;
+    setExistingAnimal: (a: Animal | undefined) => void;
 }
 
-function Form({setShowForm, addAnimal, existingAnimal}: Readonly<FormProps>) {
+function Form({setShowForm, addAnimal, existingAnimal, setExistingAnimal}: Readonly<FormProps>) {
 
     const [formState, setFormState] = useState<{
         animal: Animal;
@@ -86,7 +87,7 @@ function Form({setShowForm, addAnimal, existingAnimal}: Readonly<FormProps>) {
                     >
                         <TextField
                             label="Name"
-                            margin="normal"
+                            sx={{marginBottom: '0.5rem'}}
                             value={animal.name}
                             onChange={(e) => handleChange("name", e.target.value)}
                             error={errors.name}
@@ -101,6 +102,7 @@ function Form({setShowForm, addAnimal, existingAnimal}: Readonly<FormProps>) {
                         <Autocomplete
                             disablePortal
                             options={Object.values(Species)}
+                            sx={{marginBottom: '0.5rem'}}
                             fullWidth
                             value={animal.species}
                             onChange={(_, value) => handleChange("species", value ?? "")}
@@ -115,6 +117,7 @@ function Form({setShowForm, addAnimal, existingAnimal}: Readonly<FormProps>) {
                         <TextField
                             fullWidth
                             label="Price"
+                            sx={{marginBottom: '0.5rem'}}
                             type="number"
                             value={animal.price}
                             onChange={(e) => handleChange("price", parseFloat(e.target.value))}
@@ -132,6 +135,7 @@ function Form({setShowForm, addAnimal, existingAnimal}: Readonly<FormProps>) {
                     >
                         <TextField
                             fullWidth
+                            sx={{marginBottom: '0.5rem'}}
                             label="Birthday (optional)"
                             type="date"
                             value={animal.birthday !== null ? animal.birthday : dayjs()}
@@ -142,7 +146,10 @@ function Form({setShowForm, addAnimal, existingAnimal}: Readonly<FormProps>) {
                 <DialogActions>
                     <FormButtonStack
                         isButtonDisabled={isButtonDisabled}
-                        onCancel={() => setShowForm(false)}
+                        onCancel={() => {
+                            setShowForm(false)
+                            setExistingAnimal(undefined)
+                        }}
                         buttonText={existingAnimal ? "Change Animal" : "ADD ANIMAL"}
                     />
                 </DialogActions>

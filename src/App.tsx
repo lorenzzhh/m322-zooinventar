@@ -107,10 +107,9 @@ function App() {
                 }}>
                     <Form
                         existingAnimal={existingAnimal}
-                        setShowForm={(x) => {
-                            setShowForm(x);
-                        }}
-                        addAnimal={(a) => addAnimal(a)}
+                        setShowForm={setShowForm}
+                        addAnimal={addAnimal}
+                        setExistingAnimal={setExistingAnimal}
                     />
                 </Dialog>
             )}

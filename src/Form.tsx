@@ -12,7 +12,6 @@ import {Animal, Species} from "./types.ts";
 import ValidatedInput from "./ValidatedInput.tsx";
 import {v4 as uuidv4} from 'uuid';
 import FormButtonStack from "./FormButtonStack.tsx";
-import {DatePicker} from "@mui/x-date-pickers";
 import dayjs, {Dayjs} from 'dayjs';
 
 interface FormProps {
@@ -29,11 +28,11 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
         errors: { name: boolean; species: boolean; price: boolean; birthday: boolean };
     }>({
         animal: {
-            id: existingAnimal ? existingAnimal.id : uuidv4(), // Increment ID only if adding new animal
+            id: existingAnimal ? existingAnimal.id : uuidv4(),
             name: existingAnimal ? existingAnimal.name : "",
             species: existingAnimal ? existingAnimal.species : null,
             price: existingAnimal ? existingAnimal.price : null,
-            birthday: existingAnimal ? existingAnimal.birthday : dayjs(),
+            birthday: existingAnimal ? existingAnimal.birthday : null,
         },
         errors: {
             name: false,
@@ -54,6 +53,8 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
             if (field === "name") updatedErrors.name = (value as string).trim().length < 3;
             if (field === "species") updatedErrors.species = value === null;
             if (field === "price") updatedErrors.price = (value as number) <= 0;
+
+            if (field === "birthday") updatedErrors.birthday = dayjs(value).isAfter(dayjs()) || dayjs(value).isBefore(dayjs().subtract(150, "years"));
 
             return {animal: updatedAnimal, errors: updatedErrors};
         });
@@ -108,7 +109,7 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                             options={Object.values(Species)}
                             fullWidth
                             value={animal.species}
-                            onChange={(_, value) => handleChange("species", value || "")}
+                            onChange={(_, value) => handleChange("species", value ?? "")}
                             renderInput={(params) => <TextField {...params} label="Species" required/>}
                         />
                     </ValidatedInput>
@@ -134,15 +135,15 @@ function Form({setShowForm, addAnimal, setShowSuccessMessage, existingAnimal}: R
                     <ValidatedInput
                         isChecked={animal.birthday !== null && !errors.birthday}
                         error={errors.birthday}
-                        helperText={errors.birthday ? "Invalid birthday" : " "}
+                        helperText={errors.birthday ? "Birthday can't be older than 150 years or be in the future." : " "}
                     >
-                        <DatePicker
+                        <TextField
+                            fullWidth
                             label="Birthday (optional)"
-                            value={animal.birthday}
-                            onChange={(newValue) => handleChange("birthday", newValue)}
+                            type="date"
+                            value={animal.birthday !== null ? animal.birthday : dayjs()}
+                            onChange={(e) => handleChange("birthday", e.target.value)}
                         />
-
-
                     </ValidatedInput>
                 </DialogContent>
                 <DialogActions>

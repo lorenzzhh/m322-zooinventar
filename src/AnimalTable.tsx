@@ -25,11 +25,11 @@ const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
             minWidth: 110,
             flex: 1,
             renderCell: (params) => {
-                return new Date(params.row.birthdate).toLocaleDateString('de-DE', {
+                return params.row.birthdate ? new Date(params.row.birthdate).toLocaleDateString('de-DE', {
                     day: '2-digit',
                     month: '2-digit',
                     year: 'numeric'
-                });
+                }) : '-';
             },
         },
         {
@@ -40,7 +40,7 @@ const AnimalTable: React.FC<Props> = ({animals, onDelete, onEdit}) => {
             sortable: false,
             renderCell: (params) => (
                 <>
-                    <Button sx={{marginRight: 1}}  size={"small"} variant={"contained"}
+                    <Button sx={{marginRight: 1}} size={"small"} variant={"contained"}
                             onClick={() => onEdit(params.row.id)}>Edit</Button>
                     <Button size={"small"} variant={"contained"} color={"secondary"}
                             onClick={() => onDelete(params.row.id)}>Delete</Button>

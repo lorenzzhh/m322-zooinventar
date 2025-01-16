@@ -1,2 +1,3 @@
-# Zooinventar
-#### Elias + Lorenz
+# M322 Zooinventar
+
+#### Elias Zulauf + Lorenz Fritschi
